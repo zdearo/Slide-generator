@@ -1,17 +1,18 @@
-import * as cheerio from 'cheerio'
-import * as axios from 'axios'
+import * as cheerio from 'cheerio';
+import axios from 'axios';
 
 export default class webScrapingController {
 
     //Função para buscar o HTML da página e retornar o documento
     public async getDoc(url: string) {
-        try{
-            const doc = (await axios.default.get(url)).data; //Busca o HTML da página
-            console.log('URL definida com sucesso!'); //Exibe mensagem de sucesso
-            return doc; //Retorna o documento
-        } catch (err) {
-            return ('Erro ao definir a URL: ' + err); //Exibe mensagem de erro caso não consiga definir a URL
-        }
+        return axios.get(url).then((response) => {
+            const doc = response.data; // Busca o HTML da página
+            console.log("URL definida com sucesso!"); // Exibe mensagem de sucesso
+            return doc; // Retorna o documento
+        })
+        .catch((err) => {
+            return "Erro ao definir a URL: " + err; // Exibe mensagem de erro caso não consiga definir a URL
+        });
     }
 
     //Função para buscar a letra da música e retornar o título e a letra separada em um array
