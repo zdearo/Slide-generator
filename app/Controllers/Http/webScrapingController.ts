@@ -19,13 +19,13 @@ export default class webScrapingController {
     public async getLetra({request: req, response: res}) {
         const url = await req.all().url; //Recebe a URL da requisição
         const doc = await this.getDoc(url); //Busca o documento da página utilizando a função getDoc e passando a URL como parâmetro
-        const $ = cheerio.load(doc); // Carrega a página HTML
-        const titulo = ($('article div.cnt-head_title h1')).text(); //Busca o título da música
+        const pag = cheerio.load(doc); // Carrega a página HTML
+        const titulo = (pag('article div.cnt-head_title h1')).text(); //Busca o título da música
         let letra: any[] = []; // Cria um array para armazenar a letra da música
         
         //Busca a letra da música e separa em um array
-        $('div#js-lyric-cnt div.cnt-letra p').each((_, elem) => {
-            let estrofe = $(elem); //Busca a estrofe
+        pag('div#js-lyric-cnt div.cnt-letra p').each((_, elem) => {
+            let estrofe = pag(elem); //Busca a estrofe
             let versos = estrofe.html()?.split('<br>'); //Separa a estrofe em versos
             letra.push(versos); //Adiciona os versos no array letra
         });
