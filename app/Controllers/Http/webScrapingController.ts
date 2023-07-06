@@ -1,9 +1,10 @@
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import * as cheerio from "cheerio";
 import axios from "axios";
 
 export default class webScrapingController {
     //Função para buscar o HTML da página e retornar o documento
-    public async getDoc(url: string): Promise<string | Error> {
+    private async getDoc(url: string): Promise<string | Error> {
         return axios
             .get(url)
             .then((response) => {
@@ -21,7 +22,7 @@ export default class webScrapingController {
     }
 
     //Função para buscar a letra da música e retornar o título e a letra separada em um array
-    public async getLetra({ request: req, response: res }): Promise<string> {
+    public async getLetra({ request: req, response: res }: HttpContextContract) {
         const url: string = await req.all().url; //Recebe a URL da requisição
         return this.getDoc(url)
             .then((doc) => {
@@ -50,13 +51,15 @@ export default class webScrapingController {
                 });
 
                 // Retorna o título e a letra da música
-                return res.json({
+                return res.status(200).json({
                     titulo: titulo,
                     letra: letra,
                 });
             })
             .catch((err: Error) => {
-                return "Erro ao definir a URL: " + err.message; // Retorna o erro
+                return res.status(500).json({
+                    error: "Erro ao definir a URL: " + err.message // Retorna o erro
+                });
             });
     }
 }
