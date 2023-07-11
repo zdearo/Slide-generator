@@ -28,7 +28,7 @@
     "@adonisjs/view": "^6.2.0",
     "axios": "^1.4.0",
     "cheerio": "^1.0.0-rc.12",
-    "nodejs-pptx": "^1.2.4",
+    "pptxgenjs": "^3.12.0",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21"
