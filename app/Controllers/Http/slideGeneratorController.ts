@@ -4,9 +4,9 @@ import pptxgen from "pptxgenjs";
 export default class SlideGeneratorsController {
 
     public async criarApresentacao({request: req, response: res,}: HttpContextContract) {
-        let musica = await req.all(); //Recebe a letra da música pela requisição
+        let musica = req.all(); //Recebe a letra da música pela requisição
         let pptx = new pptxgen(); //Cria uma nova apresentação
-        
+
         //Define o padrão de slide para a apresentação
         pptx.defineSlideMaster({
             title: "MASTER_SLIDE", // Nome do padrão
@@ -27,7 +27,7 @@ export default class SlideGeneratorsController {
         });
 
         //Adiciona um novo slide para cada estrofe da música
-        musica.letra.forEach((estrofe: Array<string>) => {
+        await musica.letra.forEach((estrofe: Array<string>) => {
             pptx.addSlide({ masterName: "MASTER_SLIDE" }).addText(
                 estrofe.join("\n"),
                 {
@@ -43,7 +43,19 @@ export default class SlideGeneratorsController {
             );
         });
 
-        //Salva o arquivo na pasta public/pptx
-        pptx.writeFile({ fileName: "public/pptx/" + musica.titulo + ".pptx" });
+        // Retornando a apresentação para o usuário
+        return pptx.stream().
+            then((stream) => {
+                res.header("Content-Type", "application/vnd.openxmlformats-officedocument.presentationml.presentation");
+                res.header("Content-Disposition", "attachment; filename=apresentacao.pptx");
+                res.status(200).send(stream);
+            })
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json({
+                    message: "Erro ao gerar a apresentação!",
+                });
+            }
+        );
     }
 }
