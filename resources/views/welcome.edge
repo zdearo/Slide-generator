@@ -29,11 +29,6 @@
       padding: 0;
     }
 
-    a {
-      color: #5A45FF;
-      text-decoration: none;
-    }
-
     main {
       max-width: 620px;
       margin: auto;
@@ -44,67 +39,18 @@
       justify-content: center;
     }
 
-    .title {
-      font-size: 50px;
-      line-height: 50px;
-      margin-bottom: 10px;
-      color: #17161A;
-    }
-
-    .subtitle {
-      font-size: 26px;
-      margin-bottom: 40px;
-    }
-
-    p {
-      margin-bottom: 20px;
-    }
-
-    main ul {
-      list-style: none;
-    }
-
-    main li {
-      margin-bottom: 5px;
-      position: relative;
-      padding-left: 25px;
-    }
-
-    main li:before {
-      content: '—';
-      position: absolute;
-      left: 0;
-    }
-
-    main code {
-      font-size: 16px;
-      background: #e6e2ff;
-    }
   </style>
 </head>
 <body>
 
   <main>
-    <div>
-      <h1 class="title"> It Works! </h1>
-      <p class="subtitle">
-        Congratulations, you have just created your first AdonisJS app.
-      </p>
-
-      <ul>
-        <li>
-          The route for this page is defined inside <code>start/routes.ts</code> file
-        </li>
-
-        <li>
-          You can update this page by editing <code>resources/views/welcome.edge</code> file
-        </li>
-
-        <li>
-          If you run into problems, you can reach us on <a href="https://discord.gg/vDcEjq6?">Discord</a> or the <a href="https://forum.adonisjs.com/">Forum</a>.
-        </li>
-      </ul>
-    </div>
+    <form id="urlForm">
+      <input type="text" id="url" placeholder="url" />
+      <button id="enviarBtn" type="submit">Enviar</button>
+    </form>
   </main>
+
+  <script src="/js/index.js"></script>
+
 </body>
 </html>
