@@ -51,9 +51,8 @@ export default class SlideGeneratorsController {
                 res.status(200).send(stream);
             })
             .catch((err) => {
-                console.log(err);
                 return res.status(500).json({
-                    message: "Erro ao gerar a apresentação!",
+                    message: "Erro ao gerar a apresentação!: \n" + err,
                 });
             }
         );
