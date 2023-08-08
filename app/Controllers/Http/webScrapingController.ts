@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import * as cheerio from "cheerio";
 import axios from "axios";
 
-export default class webScrapingController {
+export default class WebScrapingController {
     // Função para buscar o HTML da página e retornar o documento
     private async getDoc(url: string): Promise<string> {
         const response = await axios.get(url);
