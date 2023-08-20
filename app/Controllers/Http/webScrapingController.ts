@@ -25,7 +25,6 @@ export default class WebScrapingController {
         }
 
         const musica: [string, string[][]] = [pag("article div.head-titleContainer h1.head-title").text(), []]; // Array para armazenar o título e a letra da música
-        console.log('passou 2')
         // Busca a letra da música e separa em um array
         letraContainer.each((_, elem) => { // Percorre cada elemento da letra da música
             const estrofe = pag(elem); // Recebe o elemento atual
