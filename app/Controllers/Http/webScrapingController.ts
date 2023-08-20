@@ -17,15 +17,15 @@ export default class WebScrapingController {
     private async formatarLetra(url: string): Promise<[string, string[][]]> {
         const doc = await this.getDoc(url); // Recebe o documento da página
         const pag = cheerio.load(doc); // Carrega o documento da página
-        const letraContainer = pag("div#js-lyric-cnt div.cnt-letra p"); // Busca o elemento que contém a letra da música
+        const letraContainer = pag("article div.lyric div.lyric-original p"); // Busca o elemento que contém a letra da música
 
         // Verifica se a letra da música foi encontrada
         if (letraContainer.length === 0) {
             throw new Error("Letra não encontrada! Verifique se o link é de uma música"); // Lança um erro caso a letra não seja encontrada
         }
 
-        const musica: [string, string[][]] = [pag("article div.cnt-head_title h1").text(), []]; // Array para armazenar o título e a letra da música
-
+        const musica: [string, string[][]] = [pag("article div.head-titleContainer h1.head-title").text(), []]; // Array para armazenar o título e a letra da música
+        console.log('passou 2')
         // Busca a letra da música e separa em um array
         letraContainer.each((_, elem) => { // Percorre cada elemento da letra da música
             const estrofe = pag(elem); // Recebe o elemento atual
@@ -42,7 +42,6 @@ export default class WebScrapingController {
                 musica[1].splice(i, 1, estrofe1, estrofe2); // Apaga a estrofe original e adiciona as duas novas estrofes
             }
         } 
-
         return musica; // Retorna o array musica
     }
 
@@ -62,6 +61,7 @@ export default class WebScrapingController {
     }
 
     private handleError(response: HttpContextContract['response'], error: Error) {
+        console.log(error)
         return response.status(500).json({
             error: error.message,
         });
