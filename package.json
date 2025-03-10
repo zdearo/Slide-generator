@@ -26,7 +26,7 @@
     "@adonisjs/session": "^6.4.0",
     "@adonisjs/shield": "^7.1.1",
     "@adonisjs/view": "^6.2.0",
-    "axios": "^1.4.0",
+    "axios": "^1.8.2",
     "cheerio": "^1.0.0-rc.12",
     "pptxgenjs": "^3.12.0",
     "proxy-addr": "^2.0.7",
